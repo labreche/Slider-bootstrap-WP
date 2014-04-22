@@ -71,16 +71,33 @@
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                       <!-- Wrapper for slides -->
                       <div class="carousel-inner">
-                        <div class="item active">
-                          <img src="http://cdn.soliloquywp.com/wp-content/uploads/2012/02/fast.jpg" alt="test">
-                        texte 12
-                        </div>
-                        
-                        <div class="item">
-                              <img src="http://cdn.soliloquywp.com/wp-content/uploads/2012/02/fast.jpg" alt="Second slide">
-                        texte 2
-                          </div>
-                      </div>
+        <?php
+          $the_query = new WP_Query(array(
+           'post_type' =>'post',
+           'posts_per_page' => 1
+         ));
+         while ( $the_query->have_posts() ) :
+         $the_query->the_post();
+         ?>
+        <div class="item active">
+            <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(''); ?></a>
+            <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+        </div>
+        <?php endwhile; wp_reset_postdata(); ?>
+        <?php
+         $the_query = new WP_Query(array(
+          'post_type' =>'post',
+          'offset' => 1
+         ));
+         while ( $the_query->have_posts() ) :
+         $the_query->the_post();
+         ?>
+         <div class="item">
+            <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(''); ?></a>
+            <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+         </div>
+        <?php endwhile; wp_reset_postdata(); ?>
+    </div>
                         
                     
                       <!-- Controls -->
